@@ -1,0 +1,17 @@
+<ul class="layui-nav layui-nav-tree">
+	<li class="layui-nav-item"><a href="/user/index.html"> <i
+			class="kfont ukefu-icon">&#xe717;</i> 我的主页
+	</a></li>
+	<li class="layui-nav-item <#if typename?? && (typename == 'center' || typename == 'answer' || typename == 'fans'  || typename == 'follows')>layui-this</#if>"><a href="/user/center.html"> <i
+			class="layui-icon ukefu-icon">&#xe612;</i> 用户中心
+	</a></li>
+	<li class="layui-nav-item <#if typename?? && typename == 'profile'>layui-this</#if>"><a href="/user/profile.html"> <i
+			class="layui-icon ukefu-icon">&#xe631;</i> 基本设置
+	</a></li>
+	<li class="layui-nav-item <#if typename?? && typename == 'messages'>layui-this</#if>"><a href="/user/messages.html"> <i
+			class="layui-icon ukefu-icon">&#xe63a;</i> 我的消息
+	</a></li>
+	<li class="layui-nav-item <#if typename?? && typename == 'license'>layui-this</#if>"><a href=""> <i
+			class="kfont ukefu-icon">&#xe658;</i> 产品授权
+	</a></li>
+</ul>

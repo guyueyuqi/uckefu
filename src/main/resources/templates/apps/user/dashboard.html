@@ -1,0 +1,109 @@
+<div class="main" style="min-height:140px;position: relative;">
+		<img src="/res/image/${curruser.id!''}.html"
+			alt="${curruser.username!''}">
+		<div class="ukefu-user-index">
+			<h1>
+				${curruser.username!''}
+				<#if curruser.gender?? && curruser.gender == '0'>
+					<i class="iconfont icon-nan"></i>
+				<#elseif curruser.gender?? && curruser.gender == '1'>
+					<i class="iconfont icon-nv"></i>
+				</#if>
+				<#if curruser.title?? && curruser.title != ''>
+				<#list curruser.title?split(',') as title>
+					<#if title == '1'>
+						<span style="color:#c00;">（超级码农）</span>
+					</#if>
+					<#if title == '2'>
+				  		<span style="color:#5FB878;">（活雷锋）</span>
+				  	</#if>
+				</#list>
+				</#if>
+			  	<#if curruser.status?? && curruser.status == '0'>
+			  	<span>（该号已被封）</span>
+			  	</#if>
+			  	<#if curruser.usertype?? && curruser.usertype == '0'>
+			  	<span style="color:#c00;">（管理员）</span>
+			  	</#if>
+			</h1>
+			<div class="layui-main">
+				<p
+					style="display: inline-block; max-width: 800px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #999; margin-top: 10px;">
+					${curruser.memo!''}</p>
+			</div>
+			<div class="ukefu-sns">
+				<#if curruser?? && user?? && curruser.id == user.id>
+					<span lay-event="" class="ukefu-btn-group">
+						<a href="/user/profile.html"
+						<button class="layui-btn layui-btn-normal layui-btn-small ukefu-btn-sns">
+							<i class="layui-icon">&#xe63a;</i>
+							编辑个人信息
+						</button>
+						</a>
+					</span>
+				<#else>
+					<#if fan??>
+					<span lay-event="" class="ukefu-btn-group">
+						<a href="/user/unfans/${curruser.id!''}"
+						<button class="layui-btn layui-btn-normal layui-btn-small ukefu-btn-fans">
+							<i class="layui-icon">&#xe60c;</i>
+							取消关注
+						</button>
+						</a>
+					</span>
+					<#else>
+						<span lay-event="" class="ukefu-btn-group">
+							<a href="/user/fans/${curruser.id!''}"
+							<button class="layui-btn layui-btn-normal layui-btn-small ukefu-btn-fans">
+								<i class="layui-icon">&#xe60c;</i>
+								关注
+							</button>
+							</a>
+						</span>
+					</#if>
+					<span lay-event="" class="ukefu-btn-group">
+						<a href="/user/message/${curruser.id!''}.html" data-toggle="ajax" data-width="550" data-height="270" data-title="">
+						<button class="layui-btn layui-btn-normal layui-btn-small ukefu-btn-sns">
+							<i class="layui-icon">&#xe63a;</i>
+							私信
+						</button>
+						</a>
+					</span>
+					<!-- 
+					<span lay-event="" class="ukefu-btn-group">
+						<button class="layui-btn layui-btn-normal layui-btn-small ukefu-btn-sns">
+							<i class="layui-icon">&#xe607;</i>
+							提问
+						</button>
+					</span>
+					 -->
+				</#if>
+				
+			</div>
+		</div>
+		<div class="ukefu-relation">
+			<span lay-event="" class="ukefu-relation-item">
+				积分
+				<a href="/user/index/${curruser.id!''}.html" class="measure">
+					${curruser.integral!0}
+				</a>
+			</span>
+			<span lay-event="" class="ukefu-relation-item">
+				粉丝
+				<a href="/user/fans/list/${curruser.id}.html" class="measure">
+					${fans!0}
+				</a>
+			</span>
+			<span lay-event="" class="ukefu-relation-item">
+				关注
+				<a href="/user/follows/list/${curruser.id}.html" class="measure">
+					${follows!0}
+				</a>
+			</span>
+			<div class="ukefu-join-time ukefu-text-muted">
+				
+                     	<#if curruser.createtime??>加入于${curruser.createtime?string('yyyy-MM-dd')}</#if>  <#if curruser.lastlogintime??>最近登录：${curruser.lastlogintime?string('yyyy-MM-dd HH:mm:ss')}</#if>
+                 
+			</div>
+		</div>
+	</div>

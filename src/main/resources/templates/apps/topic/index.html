@@ -1,0 +1,77 @@
+<div class="main layui-clear">
+	<div class="wrap">
+	    <div class="content" style="margin-right:0px;">
+	      <div class="fly-tab">
+	        <span>
+	          <a href="/">全部</a>
+	          <a href="/finish.html" <#if subtype?? && subtype == "finish">class="tab-this"</#if>>未结帖</a>
+	          <a href="/accept.html" <#if subtype?? && subtype == "accept">class="tab-this"</#if>>已采纳</a>
+	          <a href="/essence.html" <#if subtype?? && subtype == "essence">class="tab-this"</#if>>精帖</a>
+	          <#if user??>
+	          	<a href="/my.html" <#if subtype?? && subtype == "my">class="tab-this"</#if>>我的帖</a>
+	          </#if>
+	        </span>
+	        <form action="/" class="fly-search">
+	          <i class="iconfont icon-sousuo"></i>
+	          <input class="layui-input" autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="q" value="${RequestParameters['q']!''}">
+	        </form>
+	        <a href="/topic/add.html" class="layui-btn jie-add">发布问题</a>
+	      </div>
+	      
+	      
+	      <ul class="fly-list">
+	      	<#if defaultTopicList??>
+	      	<#list defaultTopicList.content as topic>
+	        <li class="fly-list-li">
+	          <a href="/user/index.html" class="fly-list-avatar">
+	            <img src="/res/image/${topic.creater!''}.html" onerror="this.src='/images/user/default.png'">
+	          </a>
+	          <h2 class="fly-tip">
+	            <a href="/topic/detail/${topic.id!''}.html">${topic.title!''}</a>
+	            <#if topic.top>
+	            <span class="fly-tip-stick">置顶</span>
+	            </#if>
+	            <#if topic.essence>
+	            <span class="fly-tip-jing">精帖</span>
+	            </#if>
+	          </h2>
+	          <p>
+	            <span><a href="/user/index.html">${topic.username!''}</a></span>
+	            <span>${topic.updatetime?string('yyyy-MM-dd HH:mm:ss')}</span>
+	            <span class="fly-list-hint"> 
+	              <i class="iconfont" title="回答">&#xe60c;</i> ${topic.answers!0}
+	              <i class="iconfont" title="人气">&#xe60b;</i> ${topic.views!0}
+	            </span>
+	          </p>
+	        </li>
+	        </#list>
+	        </#if>
+	        
+	      </ul>
+	      
+	      <div style="text-align: center">
+	        <div class="laypage-main" id="pages"></div>
+	      </div>
+	      
+	    </div>
+	  </div>
+  </div>
+  <script>
+  	layui.use(['laypage', 'layer'], function(){
+  		var laypage = layui.laypage;
+	  	laypage({
+		    cont: 'pages'
+		    ,first:'首页'
+		    ,last:'末页'
+		    ,pages: ${defaultTopicList.totalPages}
+		    ,curr:${defaultTopicList.number+1}
+		    ,skin: '#32c24d'
+		    ,jump:function(obj, first){
+		    	var curr = obj.curr;
+		    	if(!first){
+		    		location.href = '/${subtype!'my'}.html?p='+curr+"<#if RequestParameters['q']?? && RequestParameters['q'] != ''>&q=${RequestParameters['q']}</#if>";
+		    	}
+		    }
+		});
+	});
+  </script>

@@ -1,0 +1,48 @@
+<ul class="layui-nav layui-nav-tree" lay-filter="demo">
+	<li class="layui-nav-item <#if subtype?? && subtype == 'content'>layui-this</#if>">
+		<a class="layui-nav-default" href="/admin/content.html">系统概况</a>
+	</li>
+	<li class="layui-nav-item layui-nav-itemed">
+	<a class="layui-nav-title" 
+		href="javascript:;">用户和组</a>
+		<dl class="layui-nav-child">
+			<dd  <#if subtype?? && subtype == 'adminuser'>class="layui-this"</#if>>
+				<a href="/admin/user/index.html">系统管理员</a>
+			</dd>
+			<dd  <#if subtype?? && subtype == 'user'>class="layui-this"</#if>>
+				<a href="/admin/user/list.html">注册用户</a>
+			</dd>
+		</dl>
+	</li>
+	<li class="layui-nav-item layui-nav-itemed">
+		<a class="layui-nav-title" href="javascript:;">内容管理</a>
+		<dl class="layui-nav-child">
+			<dd <#if subtype?? && subtype == 'topic'>class="layui-this"</#if>>
+				<a href="/admin/topic/index.html">问答主题</a>
+			</dd>
+			<dd <#if subtype?? && subtype == 'comment'>class="layui-this"</#if>>
+				<a href="/admin/topic/comment.html">用户回答</a>
+			</dd>
+			<dd <#if subtype?? && subtype == 'webim'>class="layui-this"</#if>>
+				<a href="/admin/webim/index.html">发帖排行</a>
+			</dd>
+			<dd <#if subtype?? && subtype == 'webim'>class="layui-this"</#if>>
+				<a href="/admin/webim/index.html">回复排行</a>
+			</dd>
+		</dl>
+	</li>
+	<li class="layui-nav-item layui-nav-itemed">
+		<a class="layui-nav-title" href="javascript:;">统计报表</a>
+		<dl class="layui-nav-child">
+			
+			<dd>
+				<a href="javascript:;">访问统计</a>
+			</dd><dd>
+				<a href="javascript:;">回复统计</a>
+			</dd>
+			<dd>
+				<a href="javascript:;">主题统计</a>
+			</dd>
+		</dl>
+	</li>
+</ul>

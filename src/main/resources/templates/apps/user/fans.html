@@ -1,0 +1,86 @@
+<div class="fly-home">
+	<#include '/apps/user/dashboard.html'>
+</div>
+
+<div class="main layui-clear">
+	<div class="fly-main layui-clear">
+		<div class="home-left">
+			<#include "/apps/user/userinfo.html">
+		</div>
+		<div class="home-right">
+			<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+				<ul class="layui-tab-title">
+					<li class="layui-this">粉丝（${fansList.totalElements!0}）</li>
+				</ul>
+				<div class="layui-tab-content">
+					<div class="layui-tab-item layui-show" style="padding-top:10px;">
+						<ul class="jie-row">
+							<#if fansList?? && fansList.content??>
+							<#list fansList.content as fanUser>
+							
+							<li class="ukefu-user-fans">
+								
+								<a href="/user/index/${fanUser.id!''}.html" target="_blank" class="fly-list-avatar">
+									<img src="/res/image/${fanUser.id!''}.html">
+									<div class="ukefu-users-sns">
+										<div class="item">
+											${fanUser.username!''}
+										</div>
+										<div class="item">
+											积分：${fanUser.integral!0} | 粉丝 ：${fanUser.fans!0} | 关注：${fanUser.follows!0}
+										</div>
+										<div class="ukefu-users-location item">
+											<i class="iconfont icon-chengshi"></i>
+											位置：${fanUser.province!''} ${fanUser.city!''}
+											<label style="margin-left:20px;">
+											签名：${fanUser.memo!''}
+										</div>
+									</div>
+								</a> 
+								<div class="ukefu-user-operator">
+									<div>
+										<button class="layui-btn layui-btn-normal layui-btn-small ukefu-btn-sns">
+											关注
+										</button>
+									</div>
+									<div>
+										<button class="layui-btn layui-btn-normal layui-btn-small ukefu-btn-sns">
+											私信
+										</button>
+									</div>
+								</div>
+							</li>
+							</#list>
+							<#else>
+								<li class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">还没有粉丝</i></li>
+							</#if>
+						</ul>
+						<div style="text-align: center">
+							<div class="laypage-main" id="topicpages"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	layui.use(['element' , 'laypage'], function(){
+	  var element = layui.element() ;
+	  var laypage = layui.laypage;
+	  laypage({
+		    cont: 'topicpages'
+		    ,first:'首页'
+		    ,last:'末页'
+		    ,pages: ${fansList.totalPages}
+		    ,curr:${fansList.number+1}
+		    ,skin: '#32c24d'
+		    ,jump:function(obj, first){
+		    	var curr = obj.curr;
+		    	if(!first){
+		    		location.href = '/user/fans/list/${curruser.id!''}.html?p='+curr+"<#if RequestParameters['q']?? && RequestParameters['q'] != ''>&q=${RequestParameters['q']}</#if>";
+		    	}
+		    }
+	});
+  });
+</script>

@@ -1,0 +1,8 @@
+<h2 class="page-title">
+	基本信息
+</h2>
+<ul class="home-info" style="padding-top:0px;">
+	<#if curruser.createtime??><li><i class="iconfont icon-shijian"></i>加入时间：<span>${curruser.createtime?string('yyyy-MM-dd HH:mm:ss')}</span></li></#if>
+	<li><i class="iconfont icon-chengshi"></i>省份：<span>${curruser.province!''}</span></li>
+	<li><i class="iconfont icon-chengshi"></i>城市：<span>${curruser.city!''}</span></li>
+</ul>	

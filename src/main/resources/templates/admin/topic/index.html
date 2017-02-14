@@ -1,0 +1,70 @@
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="site-h1" style="background-color:#FFFFFF;">
+			主题列表<#if defaultTopicList??>（${defaultTopicList.totalElements!''}）</#if>
+			<span style="float:right;">
+				<form action="/admin/topic/index.html" class="fly-search">
+		          <i class="iconfont icon-sousuo"></i>
+		          <input class="layui-input" autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="q" value="${RequestParameters['q']!''}">
+		        </form>
+			</span>
+		</h1>
+		<div class="row" style="padding:5px;">
+			<div class="col-lg-12">
+				<ul class="fly-list">
+			      	<#if defaultTopicList??>
+			      	<#list defaultTopicList.content as topic>
+			        <li class="fly-list-li">
+			          <a href="/user/index.html" target="_blank" class="fly-list-avatar">
+			            <img src="/res/image/${topic.creater!''}.html" onerror="this.src='/images/user/default.png'">
+			          </a>
+			          <h2 class="fly-tip">
+			            <a href="/topic/detail/${topic.id!''}.html" target="_blank" class="ukefu-hl-ttile">${topic.title!''}</a>
+			            <#if topic.top>
+			            <span class="fly-tip-stick">置顶</span>
+			            </#if>
+			            <#if topic.essence>
+			            <span class="fly-tip-jing">精帖</span>
+			            </#if>
+			          </h2>
+			          <p>
+			            <span><a href="/user/index.html">${topic.username!''}</a></span>
+			            <span>${topic.updatetime?string('yyyy-MM-dd HH:mm:ss')}</span>
+			            <span class="fly-list-hint"> 
+			              <i class="iconfont" title="回答">&#xe60c;</i> ${topic.answers!0}
+			              <i class="iconfont" title="人气">&#xe60b;</i> ${topic.views!0}
+			            </span>
+			          </p>
+			        </li>
+			        </#list>
+			        </#if>
+			        
+			      </ul>
+			      
+			      <div style="text-align: center">
+			        <div class="laypage-main" id="pages"></div>
+			      </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+  <script>
+  	layui.use(['laypage', 'layer'], function(){
+  		var laypage = layui.laypage;
+	  	laypage({
+		    cont: 'pages'
+		    ,first:'首页'
+		    ,last:'末页'
+		    ,pages: ${defaultTopicList.totalPages}
+		    ,curr:${defaultTopicList.number+1}
+		    ,skin: '#32c24d'
+		    ,jump:function(obj, first){
+		    	var curr = obj.curr;
+		    	if(!first){
+		    		location.href = '/admin/topic/index.html?p='+curr+"<#if RequestParameters['q']?? && RequestParameters['q'] != ''>&q=${RequestParameters['q']}</#if>";
+		    	}
+		    }
+		});
+	});
+  </script>
